@@ -48,4 +48,9 @@ uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/dwm\
 		${DESTDIR}${MANPREFIX}/man1/dwm.1
 
+git:
+	git add --all
+	git commit -m "$m"
+	git push dwm master
+
 .PHONY: all options clean dist install uninstall
