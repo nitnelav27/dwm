@@ -49,7 +49,6 @@ uninstall:
 		${DESTDIR}${MANPREFIX}/man1/dwm.1
 
 git:
-	cp config.def.h config.h
 	git add --all
 	git commit -m "$m"
 	git push dwm master
