@@ -10,8 +10,8 @@ static const unsigned int gappov    	= 30;       /* vert outer gap between windo
 static       int smartgaps          	= 1;        /* 1 means no outer gap when there is only one window */
 static const int showbar            	= 1;        /* 0 means no bar */
 static const int topbar             	= 1;        /* 0 means bottom bar */
-static const char *fonts[]          	= { "Hasklig:style=regular:size=13", "NotoEmoji Nerd Font:style=Book:size=13"};
-static const char dmenufont[]       	= "Hasklig:style=regular:size=13";
+static const char *fonts[]          	= { "Fira Sans:style=regular:size=13", "JoyPixels:style=Regular:size=13"};
+static const char dmenufont[]       	= "Fira Sans:style=regular:size=13";
 static const char col_gray1[]       	= "#222222";
 static const char col_gray2[]       	= "#444444";
 static const char col_gray3[]       	= "#bbbbbb";
@@ -38,7 +38,7 @@ static const char *const autostart[] = {
 };
 
 /* tagging */
-static const char *tags[] = { "1: ", "2: ", "3: ", "4: ", "5: ", "6", "7", "8", "9" };
+static const char *tags[] = { "1:\U0001F4DA", "2:\U0001F4DA", "3:\U0001F393", "4:\U0001F4EC", "5:\U0001F4FA", "6:\U0001F3A7", "7:\u2699", "8:\U0001F5C4", "9:\U0001F4A9" };
 
 static const Rule rules[] = {
 	/* xprop(1):

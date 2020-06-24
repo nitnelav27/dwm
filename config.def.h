@@ -10,8 +10,8 @@ static const unsigned int gappov    	= 30;       /* vert outer gap between windo
 static       int smartgaps          	= 1;        /* 1 means no outer gap when there is only one window */
 static const int showbar            	= 1;        /* 0 means no bar */
 static const int topbar             	= 1;        /* 0 means bottom bar */
-static const char *fonts[]          	= { "Hasklig:style=regular:size=13", "NotoEmoji Nerd Font:style=Book:size=13"};
-static const char dmenufont[]       	= "Hasklig:style=regular:size=13";
+static const char *fonts[]          	= { "Fira Sans:style=regular:size=13", "JoyPixels:style=Regular:size=13"};
+static const char dmenufont[]       	= "Fira Sans:style=regular:size=13";
 static const char col_gray1[]       	= "#222222";
 static const char col_gray2[]       	= "#444444";
 static const char col_gray3[]       	= "#bbbbbb";
@@ -38,7 +38,7 @@ static const char *const autostart[] = {
 };
 
 /* tagging */
-static const char *tags[] = { "1: ", "2: ", "3: ", "4: ", "5: ", "6", "7", "8", "9" };
+static const char *tags[] = { "1:\U0001F4DA", "2:\U0001F4DA", "3:\U0001F393", "4:\U0001F4EC", "5:\U0001F4FA", "6:\U0001F3A7", "7:\u2699", "8:\U0001F5C4", "9:\U0001F4A9" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -93,6 +93,8 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_udec_blue, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
 
+#include <X11/XF86keysym.h>
+
 static Key keys[] = {
 	/* modifier                     key        	function        argument */
 	{ MODKEY,                       XK_p,      	spawn,          {.v = dmenucmd } },
@@ -106,22 +108,22 @@ static Key keys[] = {
 	{ MODKEY,                       XK_h,      	setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      	setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_m, 		zoom,           {0} },
-	{ MODKEY|Mod4Mask,              XK_u,      	incrgaps,       {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_u,      	incrgaps,       {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_i,      	incrigaps,      {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_i,      	incrigaps,      {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_o,      	incrogaps,      {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_o,      	incrogaps,      {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_6,      	incrihgaps,     {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_6,      	incrihgaps,     {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_7,      	incrivgaps,     {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_7,      	incrivgaps,     {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_8,      	incrohgaps,     {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_8,      	incrohgaps,     {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_9,      	incrovgaps,     {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_9,      	incrovgaps,     {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_0,      	togglegaps,     {0} },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_0,      	defaultgaps,    {0} },
+	{ MODKEY|Mod1Mask,              XK_u,      	incrgaps,       {.i = +1 } },
+	{ MODKEY|Mod1Mask|ShiftMask,    XK_u,      	incrgaps,       {.i = -1 } },
+	{ MODKEY|Mod1Mask,              XK_i,      	incrigaps,      {.i = +1 } },
+	{ MODKEY|Mod1Mask|ShiftMask,    XK_i,      	incrigaps,      {.i = -1 } },
+	{ MODKEY|Mod1Mask,              XK_o,      	incrogaps,      {.i = +1 } },
+	{ MODKEY|Mod1Mask|ShiftMask,    XK_o,      	incrogaps,      {.i = -1 } },
+	{ MODKEY|Mod1Mask,              XK_6,      	incrihgaps,     {.i = +1 } },
+	{ MODKEY|Mod1Mask|ShiftMask,    XK_6,      	incrihgaps,     {.i = -1 } },
+	{ MODKEY|Mod1Mask,              XK_7,      	incrivgaps,     {.i = +1 } },
+	{ MODKEY|Mod1Mask|ShiftMask,    XK_7,      	incrivgaps,     {.i = -1 } },
+	{ MODKEY|Mod1Mask,              XK_8,      	incrohgaps,     {.i = +1 } },
+	{ MODKEY|Mod1Mask|ShiftMask,    XK_8,      	incrohgaps,     {.i = -1 } },
+	{ MODKEY|Mod1Mask,              XK_9,      	incrovgaps,     {.i = +1 } },
+	{ MODKEY|Mod1Mask|ShiftMask,    XK_9,      	incrovgaps,     {.i = -1 } },
+	{ MODKEY|Mod1Mask,              XK_0,      	togglegaps,     {0} },
+	{ MODKEY|Mod1Mask|ShiftMask,    XK_0,      	defaultgaps,    {0} },
 	{ MODKEY,                       XK_Tab,    	view,           {0} },
 	{ MODKEY|ShiftMask,             XK_q,      	killclient,     {0} },
 	{ MODKEY,                       XK_t,      	setlayout,      {.v = &layouts[0]} },
@@ -135,6 +137,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, 	focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  	tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, 	tagmon,         {.i = +1 } },
+	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("pamixer --allow-boost -i 3")},
+	{ 0, XF86XK_AudioLowerVolume,	spawn,		SHCMD("pamixer --allow-boost -d 3")},
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
