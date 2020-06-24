@@ -31,8 +31,9 @@ static const char *colors[][3]      	= {
 };
 
 static const char *const autostart[] = {
-	"zsh", "-c", "feh --bg-scale --randomize $HOME/Pictures/WP", NULL, 
+	"zsh", "-c", "feh --bg-scale --randomize $HOME/pics/WP", NULL, 
 	"zsh", "-c", "compton -f", NULL,
+	"zsh", "-c", "blueman-applet", NULL,
 	NULL/*terminate*/ 
 };
 
@@ -96,7 +97,7 @@ static Key keys[] = {
 	/* modifier                     key        	function        argument */
 	{ MODKEY,                       XK_p,      	spawn,          {.v = dmenucmd } },
 	{ MODKEY,             		XK_Return, 	spawn,          {.v = termcmd } },
-	{ MODKEY,			XK_w,	   	spawn,          SHCMD("google-chrome")},
+	{ MODKEY,			XK_w,	   	spawn,          SHCMD("brave")},
 	{ MODKEY,                       XK_b,      	togglebar,      {0} },
 	{ MODKEY,                       XK_j,      	focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      	focusstack,     {.i = -1 } },
