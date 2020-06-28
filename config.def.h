@@ -146,7 +146,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_comma,  	tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, 	tagmon,         {.i = +1 } },
 	{ MODKEY|ShiftMask,		XK_F1,		spawn,		SHCMD("flap")},
-	{ MODKEY,			XK_F1,		spawn,		SHCMD("chlayout; kill -46 $(pidof dwmblocks")},
+	{ MODKEY,			XK_F1,		spawn,		SHCMD("chlayout ; kill -46 $(pidof dwmblocks)")},
 	{ 0, XF86XK_AudioMute,		spawn,		SHCMD("chsink")},
 	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("pamixer --allow-boost -i 3; kill -44 $(pidof dwmblocks)")},
 	{ 0, XF86XK_AudioLowerVolume,	spawn,		SHCMD("pamixer --allow-boost -d 3; kill -44 $(pidof dwmblocks)")},
