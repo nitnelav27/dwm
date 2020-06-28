@@ -10,44 +10,51 @@ static const unsigned int gappov    	= 30;       /* vert outer gap between windo
 static       int smartgaps          	= 1;        /* 1 means no outer gap when there is only one window */
 static const int showbar            	= 1;        /* 0 means no bar */
 static const int topbar             	= 1;        /* 0 means bottom bar */
-static const char *fonts[]          	= { "Fira Sans:style=regular:size=13", "JoyPixels:style=Regular:size=13"};
+static const char *fonts[]          	= { "Fira Sans:style=regular:size=13", "JoyPixels:style=Regular:size=13", "Font Awesome 5 Free Solid:style=Solid:size=13"};
 static const char dmenufont[]       	= "Fira Sans:style=regular:size=13";
-static const char col_gray1[]       	= "#222222";
-static const char col_gray2[]       	= "#444444";
-static const char col_gray3[]       	= "#bbbbbb";
-static const char col_gray4[]       	= "#eeeeee";
+static const char col_black[]       	= "#000000";
+static const char col_gray[]       	= "#444444";
+static const char col_gray2[]       	= "#bbbbbb";
+static const char col_white[]       	= "#ffffff";
 static const char col_udec_blue[]       = "#003a66";
 static const char col_udec_gold[]	= "#ffa102";
 static const char col_red[]		= "#ac1d37";
+static const char col_udec_silver[]	= "#8a8d8f";
+static const char col_gmu_gren[]	= "#006633";
+static const char col_gmu_gold[]	= "#ffcc33";
+static const char col_gmu_turquoise[]	= "#00909e";
 static const char *colors[][3]      	= {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_udec_blue,  col_red  },
-	[SchemeStatus]  = { col_gray3, col_gray1,  "#000000"  }, // Statusbar right {text,background,not used but cannot be empty}
-	[SchemeTagsSel]  = { col_gray4, col_udec_blue,  "#000000"  }, // Tagbar left selected {text,background,not used but cannot be empty}
-    [SchemeTagsNorm]  = { col_gray3, col_gray1,  "#000000"  }, // Tagbar left unselected {text,background,not used but cannot be empty}
-    [SchemeInfoSel]  = { col_gray4, col_udec_blue,  "#000000"  }, // infobar middle  selected {text,background,not used but cannot be empty}
-    [SchemeInfoNorm]  = { col_gray3, col_gray1,  "#000000"  }, // infobar middle  unselected {text,background,not used but cannot be empty}
+	[SchemeNorm] = { col_udec_gold, col_udec_blue, col_gray },
+	[SchemeSel]  = { col_udec_gold, col_udec_blue,  col_red},
+	[SchemeStatus]  = {col_udec_gold, col_udec_blue, col_black}, // Statusbar right {text,background,not used but cannot be empty}
+	[SchemeTagsSel]  = {col_udec_gold, col_udec_silver,  col_black  }, // Tagbar left selected {text,background,not used but cannot be empty}
+    [SchemeTagsNorm]  = { col_udec_gold, col_udec_blue,  col_black  }, // Tagbar left unselected {text,background,not used but cannot be empty}
+    [SchemeInfoSel]  = { col_udec_gold, col_udec_blue,  col_black  }, // infobar middle  selected {text,background,not used but cannot be empty}
+    [SchemeInfoNorm]  = { col_udec_gold, col_udec_blue,  col_black  }, // infobar middle  unselected {text,background,not used but cannot be empty}
 };
 
 static const char *const autostart[] = {
 	"zsh", "-c", "feh --bg-scale --randomize $HOME/pics/WP", NULL, 
 	"zsh", "-c", "compton -f", NULL,
 	"zsh", "-c", "blueman-applet", NULL,
+	"zsh", "-c", "dwmblocks", NULL,
+	"st", "-e", "calcurse", NULL,
 	NULL/*terminate*/ 
 };
 
 /* tagging */
-static const char *tags[] = { "1:\U0001F4DA", "2:\U0001F4DA", "3:\U0001F393", "4:\U0001F4EC", "5:\U0001F4FA", "6:\U0001F3A7", "7:\u2699", "8:\U0001F5C4", "9:\U0001F4A9" };
+static const char *tags[] = { "1:\U0001F5D3", "2:\U0001F4DA", "3:\U0001F4DA", "4:\U0001F4DA", "5:\U0001F4EC", "6:\U0001F4FA", "7:\U0001F3B5", "8:\u2699", "9:\U0001F4A9" };
 
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      		instance    	title       tags mask     isfloating   monitor */
-	{ "Gimp",     		NULL,       	NULL,       0,            1,           -1 },
-	{ "Thunderbird",  	NULL,       	NULL,       1 << 3,       0,           -1 },
+	/* class      		instance    	title       	tags mask     	isfloating   monitor */
+	{ "Gimp",     		NULL,       	NULL,       	0,            	1,           -1 },
+	{ "Thunderbird",  	NULL,       	NULL,       	1 << 4,       	0,           -1 },
+	{ "Spotify",		NULL,	"Spotify Premium", 	1 << 6,		0,           -1 },	
 };
 
 /* layout(s) */
@@ -90,7 +97,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_udec_blue, "-sf", col_gray4, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_udec_silver, "-nf", col_udec_blue, "-sb", col_udec_gold, "-sf", col_udec_blue, NULL };
 static const char *termcmd[]  = { "st", NULL };
 
 #include <X11/XF86keysym.h>
@@ -128,6 +135,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_q,      	killclient,     {0} },
 	{ MODKEY,                       XK_t,      	setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      	setlayout,      {.v = &layouts[1]} },
+	{ MODKEY,			XK_e,		spawn,		SHCMD("thunderbird")},
 	/*{ MODKEY,                       XK_m,      	setlayout,      {.v = &layouts[2]} },*/
 	{ MODKEY,                       XK_space,  	setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  	togglefloating, {0} },
@@ -137,8 +145,16 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, 	focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  	tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, 	tagmon,         {.i = +1 } },
-	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("pamixer --allow-boost -i 3")},
-	{ 0, XF86XK_AudioLowerVolume,	spawn,		SHCMD("pamixer --allow-boost -d 3")},
+	{ MODKEY|ShiftMask,		XK_F1,		spawn,		SHCMD("flap")},
+	{ MODKEY,			XK_F1,		spawn,		SHCMD("chlayout; kill -46 $(pidof dwmblocks")},
+	{ 0, XF86XK_AudioMute,		spawn,		SHCMD("chsink")},
+	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("pamixer --allow-boost -i 3; kill -44 $(pidof dwmblocks)")},
+	{ 0, XF86XK_AudioLowerVolume,	spawn,		SHCMD("pamixer --allow-boost -d 3; kill -44 $(pidof dwmblocks)")},
+	{ 0, XF86XK_AudioPlay,		spawn,		SHCMD("playerctl play-pause")},
+	{ 0, XF86XK_AudioNext,		spawn,		SHCMD("playerctl next")},
+	{ 0, XF86XK_AudioPrev,		spawn,		SHCMD("playerctl previous")},
+
+
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
