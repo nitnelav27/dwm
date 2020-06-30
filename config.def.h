@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  	= 5;        /* border pixel of windows */
+static const unsigned int borderpx  	= 7;        /* border pixel of windows */
 static const unsigned int snap      	= 32;       /* snap pixel */
 static const unsigned int gappih    	= 20;       /* horiz inner gap between windows */
 static const unsigned int gappiv    	= 10;       /* vert inner gap between windows */
@@ -23,10 +23,11 @@ static const char col_udec_silver[]	= "#8a8d8f";
 static const char col_gmu_gren[]	= "#006633";
 static const char col_gmu_gold[]	= "#ffcc33";
 static const char col_gmu_turquoise[]	= "#00909e";
+static const char col_brightblue[]	= "#3ec2cf";
 static const char *colors[][3]      	= {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_udec_gold, col_udec_blue, col_gray },
-	[SchemeSel]  = { col_udec_gold, col_udec_blue,  col_red},
+	[SchemeSel]  = { col_udec_gold, col_udec_blue,  col_brightblue},
 	[SchemeStatus]  = {col_udec_gold, col_udec_blue, col_black}, // Statusbar right {text,background,not used but cannot be empty}
 	[SchemeTagsSel]  = {col_udec_gold, col_udec_silver,  col_black  }, // Tagbar left selected {text,background,not used but cannot be empty}
     [SchemeTagsNorm]  = { col_udec_gold, col_udec_blue,  col_black  }, // Tagbar left unselected {text,background,not used but cannot be empty}
@@ -54,7 +55,8 @@ static const Rule rules[] = {
 	/* class      		instance    	title       	tags mask     	isfloating   monitor */
 	{ "Gimp",     		NULL,       	NULL,       	0,            	1,           -1 },
 	{ "Thunderbird",  	NULL,       	NULL,       	1 << 4,       	0,           -1 },
-	{ "Spotify",		NULL,	"Spotify Premium", 	1 << 6,		0,           -1 },	
+	{ "Spotify",		NULL,	"Spotify Premium", 	1 << 6,		0,           -1 },
+	{ "ffplay",		NULL,		NULL,		0,		1,	     -1 },
 };
 
 /* layout(s) */
@@ -139,6 +141,7 @@ static Key keys[] = {
 	/*{ MODKEY,                       XK_m,      	setlayout,      {.v = &layouts[2]} },*/
 	{ MODKEY,                       XK_space,  	setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  	togglefloating, {0} },
+	{ MODKEY,			XK_s,		togglesticky,	{0} },
 	{ MODKEY,                       XK_0,      	view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      	tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  	focusmon,       {.i = -1 } },
