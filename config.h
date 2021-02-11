@@ -40,12 +40,12 @@ static const char *const autostart[] = {
 	"zsh", "-c", "compton -f", NULL,
 	"zsh", "-c", "blueman-applet", NULL,
 	"zsh", "-c", "dwmblocks", NULL,
-	"st", "-e", "calcurse", NULL,
+	"zsh", "-c", "xautolock -time 15 -locker slock", NULL,
 	NULL/*terminate*/ 
 };
 
 /* tagging */
-static const char *tags[] = { "1:\U0001F5D3", "2:\U0001F4DA", "3:\U0001F4DA", "4:\U0001F4DA", "5:\U0001F4EC", "6:\U0001F4FA", "7:\U0001F3B5", "8:\u2699", "9:\U0001F4A9" };
+static const char *tags[] = { "1: \U0001F4DA", "2: \U0001F4DA", "3: \U0001F4DA", "4: \U0001F4DA", "5: \U0001F4EC", "6: \U0001F4FA", "7: \U0001F3B5", "8: \u2699", "9: \U0001F4A9" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -95,7 +95,7 @@ static const Layout layouts[] = {
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
-#define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
+#define SHCMD(cmd) { .v = (const char*[]){ "/bin/zsh", "-c", cmd, NULL } }
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
@@ -110,7 +110,6 @@ static Key keys[] = {
 	{ MODKEY,             		XK_Return, 	spawn,          {.v = termcmd } },
 	{ MODKEY,			XK_w,	   	spawn,          SHCMD("brave")},
 	{ MODKEY|ShiftMask,		XK_w,		spawn,		SHCMD("emacs")},
-	{ MODKEY,			XK_z,		spawn,		SHCMD("zathura")},
 	{ MODKEY,                       XK_b,      	togglebar,      {0} },
 	{ MODKEY,                       XK_j,      	focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      	focusstack,     {.i = -1 } },
@@ -140,6 +139,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_t,      	setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      	setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,			XK_e,		spawn,		SHCMD("thunderbird")},
+	{ MODKEY,                       XK_z,           spawn,          SHCMD("zathura")},
+	{ MODKEY|ShiftMask,             XK_s,           spawn,          SHCMD("scrot -s ~/screenshots/$(date '+%y%m%d-%H%M').png")},
 	/*{ MODKEY,                       XK_m,      	setlayout,      {.v = &layouts[2]} },*/
 	{ MODKEY,                       XK_space,  	setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  	togglefloating, {0} },
