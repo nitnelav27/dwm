@@ -41,6 +41,7 @@ static const char *const autostart[] = {
 	"zsh", "-c", "blueman-applet", NULL,
 	"zsh", "-c", "dwmblocks", NULL,
 	"zsh", "-c", "xautolock -time 15 -locker slock", NULL,
+	"zsh", "-c", "dunst", NULL, 
 	NULL/*terminate*/ 
 };
 
