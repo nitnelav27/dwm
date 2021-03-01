@@ -24,11 +24,13 @@ static const char col_gmu_gren[]	= "#006633";
 static const char col_gmu_gold[]	= "#ffcc33";
 static const char col_gmu_turquoise[]	= "#00909e";
 static const char col_brightblue[]	= "#3ec2cf";
+static const char col_mycyan[]        	= "#005577";
+static const char col_gray3[]		= "#282c34";
 static const char *colors[][3]      	= {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_udec_gold, col_udec_blue, col_gray },
-	[SchemeSel]  = { col_udec_gold, col_udec_blue,  col_brightblue},
-	[SchemeStatus]  = {col_udec_gold, col_udec_blue, col_black}, // Statusbar right {text,background,not used but cannot be empty}
+	[SchemeNorm] = { col_mycyan, col_gray3, col_black},
+	[SchemeSel]  = { col_gray3, col_mycyan,  col_brightblue},
+	[SchemeStatus]  = {col_mycyan, col_gray3, col_black}, // Statusbar right {text,background,not used but cannot be empty}
 	[SchemeTagsSel]  = {col_udec_gold, col_udec_silver,  col_black  }, // Tagbar left selected {text,background,not used but cannot be empty}
     [SchemeTagsNorm]  = { col_udec_gold, col_udec_blue,  col_black  }, // Tagbar left unselected {text,background,not used but cannot be empty}
     [SchemeInfoSel]  = { col_udec_gold, col_udec_blue,  col_black  }, // infobar middle  selected {text,background,not used but cannot be empty}
@@ -36,8 +38,8 @@ static const char *colors[][3]      	= {
 };
 
 static const char *const autostart[] = {
-	"zsh", "-c", "feh --bg-scale --randomize $HOME/pics/WP", NULL, 
-	"zsh", "-c", "compton -f", NULL,
+	"zsh", "-c", "feh --bg-scale --randomize $HOME/pix/wp", NULL, 
+	"zsh", "-c", "picom -b", NULL,
 	"zsh", "-c", "blueman-applet", NULL,
 	"zsh", "-c", "dwmblocks", NULL,
 	"zsh", "-c", "xautolock -time 15 -locker slock", NULL,
@@ -61,7 +63,7 @@ static const Rule rules[] = {
 };
 
 /* layout(s) */
-static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
+static const float mfact     = 0.6; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 
@@ -109,7 +111,7 @@ static Key keys[] = {
 	/* modifier                     key        	function        argument */
 	{ MODKEY,                       XK_p,      	spawn,          {.v = dmenucmd } },
 	{ MODKEY,             		XK_Return, 	spawn,          {.v = termcmd } },
-	{ MODKEY,			XK_w,	   	spawn,          SHCMD("brave")},
+	{ MODKEY,			XK_w,	   	spawn,          SHCMD("google-chrome")},
 	{ MODKEY|ShiftMask,		XK_w,		spawn,		SHCMD("emacs")},
 	{ MODKEY,                       XK_b,      	togglebar,      {0} },
 	{ MODKEY,                       XK_j,      	focusstack,     {.i = +1 } },
