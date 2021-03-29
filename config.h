@@ -13,7 +13,7 @@ static const int topbar             	= 1;        /* 0 means bottom bar */
 static const char *fonts[]          	= { "Fira Sans:style=regular:size=13", "JoyPixels:style=Regular:size=13", "Font Awesome 5 Free Solid:style=Solid:size=13"};
 static const char dmenufont[]       	= "Fira Sans:style=regular:size=13";
 static const char col_black[]       	= "#000000";
-static const char col_gray[]       	= "#444444";
+static const char col_gray[]       	= "#222222";
 static const char col_gray2[]       	= "#bbbbbb";
 static const char col_white[]       	= "#ffffff";
 static const char col_udec_blue[]       = "#003a66";
@@ -24,17 +24,18 @@ static const char col_gmu_gren[]	= "#006633";
 static const char col_gmu_gold[]	= "#ffcc33";
 static const char col_gmu_turquoise[]	= "#00909e";
 static const char col_brightblue[]	= "#3ec2cf";
+static const char col_bluecomp[]	= "#cf4b3e";
 static const char col_mycyan[]        	= "#005577";
 static const char col_gray3[]		= "#282c34";
 static const char *colors[][3]      	= {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_mycyan, col_gray3, col_black},
-	[SchemeSel]  = { col_gray3, col_mycyan,  col_brightblue},
-	[SchemeStatus]  = {col_mycyan, col_gray3, col_black}, // Statusbar right {text,background,not used but cannot be empty}
-	[SchemeTagsSel]  = {col_udec_gold, col_udec_silver,  col_black  }, // Tagbar left selected {text,background,not used but cannot be empty}
-    [SchemeTagsNorm]  = { col_udec_gold, col_udec_blue,  col_black  }, // Tagbar left unselected {text,background,not used but cannot be empty}
-    [SchemeInfoSel]  = { col_udec_gold, col_udec_blue,  col_black  }, // infobar middle  selected {text,background,not used but cannot be empty}
-    [SchemeInfoNorm]  = { col_udec_gold, col_udec_blue,  col_black  }, // infobar middle  unselected {text,background,not used but cannot be empty}
+	[SchemeNorm] = { col_white, col_gray, col_black},
+	[SchemeSel]  = { col_gray, col_brightblue,  col_gmu_turquoise},
+	[SchemeStatus]  = {col_white, col_gray, col_black}, // Statusbar right {text,background,not used but cannot be empty}
+	[SchemeTagsSel]  = {col_gray, col_brightblue, col_black}, // Tagbar left selected {text,background,not used but cannot be empty}
+    [SchemeTagsNorm]  = { col_white, col_gray,  col_black}, // Tagbar left unselected {text,background,not used but cannot be empty}
+    [SchemeInfoSel]  = { col_white, col_gray,  col_black}, // infobar middle  selected {text,background,not used but cannot be empty}
+    [SchemeInfoNorm]  = { col_white, col_gray,  col_black}, // infobar middle  unselected {text,background,not used but cannot be empty}
 };
 
 static const char *const autostart[] = {
@@ -58,7 +59,7 @@ static const Rule rules[] = {
 	/* class      		instance    	title       	tags mask     	isfloating   monitor */
 	{ "Gimp",     		NULL,       	NULL,       	0,            	1,           -1 },
 	{ "Thunderbird",  	NULL,       	NULL,       	1 << 4,       	0,           -1 },
-	{ "Spotify",		NULL,	"Spotify Premium", 	1 << 6,		0,           -1 },
+	{ "Spotify",		NULL,	NULL, 	1 << 6,		0,           -1 },
 	{ "ffplay",		NULL,		NULL,		0,		1,	     -1 },
 };
 
@@ -98,11 +99,11 @@ static const Layout layouts[] = {
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
-#define SHCMD(cmd) { .v = (const char*[]){ "/bin/zsh", "-c", cmd, NULL } }
+#define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_udec_silver, "-nf", col_udec_blue, "-sb", col_udec_gold, "-sf", col_udec_blue, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_bluecomp, "-nf", col_gray, "-sb", col_brightblue, "-sf", col_gray, NULL };
 static const char *termcmd[]  = { "st", NULL };
 
 #include <X11/XF86keysym.h>
@@ -159,7 +160,8 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_r,		spawn,		SHCMD("scasttoggle")},
 	{ MODKEY|ShiftMask,		XK_c,		spawn,		SHCMD("camtoggle")},
 	{ MODKEY, 			XK_r,		spawn,		SHCMD("st -e ranger ~")},
-	{ 0, XF86XK_AudioMute,		spawn,		SHCMD("chsink")},
+	{ MODKEY|ShiftMask,		XK_m,		spawn,		SHCMD("spotify")},
+	{ MODKEY|ShiftMask, 		XK_a,		spawn,		SHCMD("chsink")},
 	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("pamixer --allow-boost -i 3; kill -44 $(pidof dwmblocks)")},
 	{ 0, XF86XK_AudioLowerVolume,	spawn,		SHCMD("pamixer --allow-boost -d 3; kill -44 $(pidof dwmblocks)")},
 	{ 0, XF86XK_AudioPlay,		spawn,		SHCMD("playerctl play-pause")},
