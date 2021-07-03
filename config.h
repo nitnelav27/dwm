@@ -44,7 +44,9 @@ static const char *const autostart[] = {
 	"zsh", "-c", "blueman-applet", NULL,
 	"zsh", "-c", "dwmblocks", NULL,
 	"zsh", "-c", "xautolock -time 15 -locker slock", NULL,
-	"zsh", "-c", "dunst", NULL, 
+	"zsh", "-c", "dunst", NULL,
+	"zsh", "-c", "trackpad", NULL,
+	"zsh", "-c", "polkit-dumb-agent", NULL,
 	NULL/*terminate*/ 
 };
 
@@ -59,7 +61,7 @@ static const Rule rules[] = {
 	/* class      		instance    	title       	tags mask     	isfloating   monitor */
 	{ "Gimp",     		NULL,       	NULL,       	0,            	1,           -1 },
 	{ "Thunderbird",  	NULL,       	NULL,       	1 << 4,       	0,           -1 },
-	{ "Spotify",		NULL,	NULL, 	1 << 6,		0,           -1 },
+	{ "Spotify Premium",		NULL,	NULL, 	1 << 6,		0,           -1 },
 	{ "ffplay",		NULL,		NULL,		0,		1,	     -1 },
 };
 
@@ -73,8 +75,8 @@ static const int resizehints = 1;    /* 1 means respect size hints in tiled resi
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "[]=",      tile },    /* first entry is default */
-	{ "[M]",      monocle },
+	{ "T",      tile },    /* first entry is default */
+	{ "MONO",      monocle },
 	{ "[@]",      spiral },
 	{ "[\\]",     dwindle },
 	{ "H[]",      deck },
@@ -99,12 +101,13 @@ static const Layout layouts[] = {
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
-#define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
+#define SHCMD(cmd) { .v = (const char*[]){ "/bin/zsh", "-c", cmd, NULL } }
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_bluecomp, "-nf", col_gray, "-sb", col_brightblue, "-sf", col_gray, NULL };
 static const char *termcmd[]  = { "st", NULL };
+static const char *flap[] = {"flap", NULL};
 
 #include <X11/XF86keysym.h>
 
@@ -155,7 +158,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, 	focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  	tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, 	tagmon,         {.i = +1 } },
-	{ MODKEY|ShiftMask,		XK_p,		spawn,		SHCMD("flap")},
+	{ MODKEY|ShiftMask,		XK_p,		spawn,		{.v = flap}},
 	{ MODKEY|ShiftMask,		XK_k,		spawn,		SHCMD("chlayout ; kill -46 $(pidof dwmblocks)")},
 	{ MODKEY|ShiftMask,		XK_r,		spawn,		SHCMD("scasttoggle")},
 	{ MODKEY|ShiftMask,		XK_c,		spawn,		SHCMD("camtoggle")},
