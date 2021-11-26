@@ -2,16 +2,16 @@
 
 /* appearance */
 #include <X11/X.h>
-static const unsigned int borderpx  	= 7;        /* border pixel of windows */
-static const unsigned int snap      	= 32;       /* snap pixel */
-static const int swallowfloating      = 0;        /* 1 means swallow floating windows by default */
-static const unsigned int gappih    	= 20;       /* horiz inner gap between windows */
-static const unsigned int gappiv    	= 10;       /* vert inner gap between windows */
-static const unsigned int gappoh    	= 10;       /* horiz outer gap between windows and screen edge */
-static const unsigned int gappov    	= 30;       /* vert outer gap between windows and screen edge */
-static       int smartgaps          	= 1;        /* 1 means no outer gap when there is only one window */
-static const int showbar            	= 1;        /* 0 means no bar */
-static const int topbar             	= 1;        /* 0 means bottom bar */
+static const unsigned int borderpx  	    = 7;        /* border pixel of windows */
+static const unsigned int snap      	    = 32;       /* snap pixel */
+static const int swallowfloating          = 0;        /* 1 means swallow floating windows by default */
+static const unsigned int gappih    	    = 20;       /* horiz inner gap between windows */
+static const unsigned int gappiv    	    = 10;       /* vert inner gap between windows */
+static const unsigned int gappoh    	    = 10;       /* horiz outer gap between windows and screen edge */
+static const unsigned int gappov    	    = 30;       /* vert outer gap between windows and screen edge */
+static       int smartgaps          	    = 1;        /* 1 means no outer gap when there is only one window */
+static const int showbar            	    = 1;        /* 0 means no bar */
+static const int topbar             	    = 1;        /* 0 means bottom bar */
 static const char *fonts[]          	= { "Fira Sans:style=regular:size=13", "JoyPixels:style=Regular:size=13", "Font Awesome 5 Free Solid:style=Solid:size=13"};
 static const char dmenufont[]       	= "Fira Sans:style=regular:size=13";
 static const char col_black[]       	= "#000000";
@@ -117,9 +117,9 @@ static const char *flap[] = {"flap", NULL};
 static Key keys[] = {
 	/* modifier                     key        	function        argument */
 	{ MODKEY,                       XK_p,      	spawn,          {.v = dmenucmd } },
-	{ MODKEY,             		XK_Return, 	spawn,          {.v = termcmd } },
-	{ MODKEY,			XK_w,	   	spawn,          SHCMD("google-chrome-stable")},
-	{ MODKEY|ShiftMask,		XK_w,		spawn,		SHCMD("emacsclient -c -n")},
+	{ MODKEY,             		    XK_Return, 	spawn,          {.v = termcmd } },
+	{ MODKEY,			            XK_w,	   	spawn,          SHCMD("google-chrome-stable")},
+	{ MODKEY|ShiftMask,		        XK_w,		spawn,		    SHCMD("emacsclient -c -n")},
 	{ MODKEY,                       XK_b,      	togglebar,      {0} },
 	{ MODKEY,                       XK_j,      	focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      	focusstack,     {.i = -1 } },
@@ -148,31 +148,31 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_q,      	killclient,     {0} },
 	{ MODKEY,                       XK_t,      	setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      	setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,			XK_e,		spawn,		SHCMD("thunderbird")},
-	{ MODKEY,                       XK_z,           spawn,          SHCMD("zathura")},
-	{ MODKEY|ShiftMask,             XK_s,           spawn,          SHCMD("scrot -s ~/screenshots/$(date '+%y%m%d-%H%M').png")},
+	{ MODKEY,			            XK_e,		spawn,		    SHCMD("thunderbird")},
+	{ MODKEY,                       XK_z,       spawn,          SHCMD("zathura")},
+	{ MODKEY|ShiftMask,             XK_s,       spawn,          SHCMD("scrot -s ~/screenshots/$(date '+%y%m%d-%H%M').png")},
 	/*{ MODKEY,                       XK_m,      	setlayout,      {.v = &layouts[2]} },*/
 	{ MODKEY,                       XK_space,  	setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  	togglefloating, {0} },
-	{ MODKEY,			XK_s,		togglesticky,	{0} },
+	{ MODKEY,			            XK_s,		togglesticky,	{0} },
 	{ MODKEY|Mod1Mask,              XK_0,      	view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      	tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  	focusmon,       {.i = -1 } },
 	{ MODKEY,                       XK_period, 	focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  	tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, 	tagmon,         {.i = +1 } },
-	{ MODKEY|ShiftMask,		XK_p,		spawn,		{.v = flap}},
-	{ MODKEY|ShiftMask,		XK_k,		spawn,		SHCMD("chlayout ; kill -46 $(pidof dwmblocks)")},
-	{ MODKEY|ShiftMask,		XK_r,		spawn,		SHCMD("scasttoggle")},
-	{ MODKEY|ShiftMask,		XK_c,		spawn,		SHCMD("camtoggle")},
-	{ MODKEY, 			XK_r,		spawn,		SHCMD("st -e ranger ~")},
-	{ MODKEY|ShiftMask,		XK_m,		spawn,		SHCMD("spotify")},
-	{ MODKEY|ShiftMask, 		XK_a,		spawn,		SHCMD("chsink")},
-	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("pamixer --allow-boost -i 3; kill -44 $(pidof dwmblocks)")},
-	{ 0, XF86XK_AudioLowerVolume,	spawn,		SHCMD("pamixer --allow-boost -d 3; kill -44 $(pidof dwmblocks)")},
-	{ 0, XF86XK_AudioPlay,		spawn,		SHCMD("playerctl play-pause")},
-	{ 0, XF86XK_AudioNext,		spawn,		SHCMD("playerctl next")},
-	{ 0, XF86XK_AudioPrev,		spawn,		SHCMD("playerctl previous")},
+	{ MODKEY|ShiftMask,		        XK_p,		spawn,		    {.v = flap}},
+	{ MODKEY|ShiftMask,		        XK_k,		spawn,		    SHCMD("chlayout ; kill -46 $(pidof dwmblocks)")},
+	{ MODKEY|ShiftMask,		        XK_r,		spawn,		    SHCMD("scasttoggle")},
+	{ MODKEY|ShiftMask,		        XK_c,		spawn,		    SHCMD("camtoggle")},
+	{ MODKEY, 			            XK_r,		spawn,		    SHCMD("st -e ranger ~")},
+	{ MODKEY|ShiftMask,		        XK_m,		spawn,		    SHCMD("spotify")},
+	{ MODKEY|ShiftMask, 		    XK_a,		spawn,		    SHCMD("chsink")},
+	{ 0, XF86XK_AudioRaiseVolume,	            spawn,		SHCMD("pamixer --allow-boost -i 3; kill -44 $(pidof dwmblocks)")},
+	{ 0, XF86XK_AudioLowerVolume,	            spawn,		SHCMD("pamixer --allow-boost -d 3; kill -44 $(pidof dwmblocks)")},
+	{ 0, XF86XK_AudioPlay,		                spawn,		SHCMD("playerctl play-pause")},
+	{ 0, XF86XK_AudioNext,		                spawn,		SHCMD("playerctl next")},
+	{ 0, XF86XK_AudioPrev,		                spawn,		SHCMD("playerctl previous")},
 
 
 	TAGKEYS(                        XK_1,                      0)
