@@ -3,6 +3,7 @@
 /* appearance */
 static const unsigned int borderpx  	= 7;        /* border pixel of windows */
 static const unsigned int snap      	= 32;       /* snap pixel */
+static const int swallowfloating      = 0;        /* 1 means swallow floating windows by default */
 static const unsigned int gappih    	= 20;       /* horiz inner gap between windows */
 static const unsigned int gappiv    	= 10;       /* vert inner gap between windows */
 static const unsigned int gappoh    	= 10;       /* horiz outer gap between windows and screen edge */
@@ -13,20 +14,20 @@ static const int topbar             	= 1;        /* 0 means bottom bar */
 static const char *fonts[]          	= { "Fira Sans:style=regular:size=13", "JoyPixels:style=Regular:size=13", "Font Awesome 5 Free Solid:style=Solid:size=13"};
 static const char dmenufont[]       	= "Fira Sans:style=regular:size=13";
 static const char col_black[]       	= "#000000";
-static const char col_gray[]       	= "#222222";
+static const char col_gray[]       	    = "#222222";
 static const char col_gray2[]       	= "#bbbbbb";
 static const char col_white[]       	= "#ffffff";
 static const char col_udec_blue[]       = "#003a66";
-static const char col_udec_gold[]	= "#ffa102";
-static const char col_red[]		= "#ac1d37";
-static const char col_udec_silver[]	= "#8a8d8f";
-static const char col_gmu_gren[]	= "#006633";
-static const char col_gmu_gold[]	= "#ffcc33";
+static const char col_udec_gold[]	    = "#ffa102";
+static const char col_red[]		        = "#ac1d37";
+static const char col_udec_silver[]	    = "#8a8d8f";
+static const char col_gmu_gren[]	    = "#006633";
+static const char col_gmu_gold[]	    = "#ffcc33";
 static const char col_gmu_turquoise[]	= "#00909e";
-static const char col_brightblue[]	= "#3ec2cf";
-static const char col_bluecomp[]	= "#cf4b3e";
+static const char col_brightblue[]	    = "#3ec2cf";
+static const char col_bluecomp[]	    = "#cf4b3e";
 static const char col_mycyan[]        	= "#005577";
-static const char col_gray3[]		= "#282c34";
+static const char col_gray3[]		    = "#282c34";
 static const char *colors[][3]      	= {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_white, col_gray, col_black},
@@ -45,24 +46,25 @@ static const char *const autostart[] = {
 	"zsh", "-c", "dwmblocks", NULL,
 	"zsh", "-c", "xautolock -time 15 -locker slock", NULL,
 	"zsh", "-c", "dunst", NULL,
-	"zsh", "-c", "trackpad", NULL,
+	/*"zsh", "-c", "trackpad", NULL,*/
 	"zsh", "-c", "polkit-dumb-agent", NULL,
+	"zsh", "-c", "emacs --daemon", NULL,
 	NULL/*terminate*/ 
 };
 
 /* tagging */
-static const char *tags[] = { "1: \U0001F4DA", "2: \U0001F4DA", "3: \U0001F4DA", "4: \U0001F4DA", "5: \U0001F4EC", "6: \U0001F4FA", "7: \U0001F3B5", "8: \u2699", "9: \U0001F4A9" };
+static const char *tags[] = { "1: \U0001F4DA", "2: \U0001F4DA", "3: \U0001F4DA", "4: \U0001F4DA", "5: \U0001F4EC", "6: \U0001F4FA", "7: \U0001F3B5", "8: \u2699", "9: \U0001F4A9", "10: \U0001F4A9" };
 
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      		instance    	title       	tags mask     	isfloating   monitor */
-	{ "Gimp",     		NULL,       	NULL,       	0,            	1,           -1 },
-	{ "Thunderbird",  	NULL,       	NULL,       	1 << 4,       	0,           -1 },
-	{ "Spotify Premium",		NULL,	NULL, 	1 << 6,		0,           -1 },
-	{ "ffplay",		NULL,		NULL,		0,		1,	     -1 },
+	/* class      		instance    	title       	tags mask     	isfloating   isterminal   noswallow   monitor */
+	{ "Thunderbird",  	NULL,       	NULL,       	1 << 4,       	0,           0,           -1           -1 },
+	{ "ffplay",		    NULL,		    NULL,		    0,		        1,	         0,           -1,          -1 },
+	{ "st",             NULL,           NULL,           0,              0,           1,            0,          -1 },
+	{ NULL,             NULL,           "Event Tester", 0,              0,           0,            1,          -1 },
 };
 
 /* layout(s) */
@@ -116,7 +118,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_p,      	spawn,          {.v = dmenucmd } },
 	{ MODKEY,             		XK_Return, 	spawn,          {.v = termcmd } },
 	{ MODKEY,			XK_w,	   	spawn,          SHCMD("google-chrome-stable")},
-	{ MODKEY|ShiftMask,		XK_w,		spawn,		SHCMD("emacs")},
+	{ MODKEY|ShiftMask,		XK_w,		spawn,		SHCMD("emacsclient -c -n")},
 	{ MODKEY,                       XK_b,      	togglebar,      {0} },
 	{ MODKEY,                       XK_j,      	focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      	focusstack,     {.i = -1 } },
@@ -152,7 +154,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_space,  	setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  	togglefloating, {0} },
 	{ MODKEY,			XK_s,		togglesticky,	{0} },
-	{ MODKEY,                       XK_0,      	view,           {.ui = ~0 } },
+	{ MODKEY|Mod1Mask,              XK_0,      	view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      	tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  	focusmon,       {.i = -1 } },
 	{ MODKEY,                       XK_period, 	focusmon,       {.i = +1 } },
@@ -181,6 +183,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
+	TAGKEYS(                        XK_0,                      9)
 	{ MODKEY|ShiftMask,             XK_e,      	quit,           {0} },
 	{ MODKEY|ControlMask|ShiftMask, XK_e,      	quit,           {1} }, 
 };
