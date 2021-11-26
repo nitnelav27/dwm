@@ -1,6 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
+#include <X11/X.h>
 static const unsigned int borderpx  	= 7;        /* border pixel of windows */
 static const unsigned int snap      	= 32;       /* snap pixel */
 static const int swallowfloating      = 0;        /* 1 means swallow floating windows by default */
@@ -141,7 +142,7 @@ static Key keys[] = {
 	{ MODKEY|Mod1Mask|ShiftMask,    XK_8,      	incrohgaps,     {.i = -1 } },
 	{ MODKEY|Mod1Mask,              XK_9,      	incrovgaps,     {.i = +1 } },
 	{ MODKEY|Mod1Mask|ShiftMask,    XK_9,      	incrovgaps,     {.i = -1 } },
-	{ MODKEY|Mod1Mask,              XK_0,      	togglegaps,     {0} },
+	{ MODKEY|Mod1Mask|ControlMask,  XK_0,      	togglegaps,     {0} },
 	{ MODKEY|Mod1Mask|ShiftMask,    XK_0,      	defaultgaps,    {0} },
 	{ MODKEY,                       XK_Tab,    	view,           {0} },
 	{ MODKEY|ShiftMask,             XK_q,      	killclient,     {0} },
