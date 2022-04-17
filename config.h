@@ -50,6 +50,7 @@ static const char *const autostart[] = {
 	/*"zsh", "-c", "trackpad", NULL,*/
 	"zsh", "-c", "polkit-dumb-agent", NULL,
 	"zsh", "-c", "emacs --daemon", NULL,
+	"zsh", "-c", "sudo mount -a", NULL,
 	NULL/*terminate*/ 
 };
 
@@ -62,7 +63,7 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      		instance    	title       	tags mask     	isfloating   isterminal   noswallow   monitor */
-	{ "Thunderbird",  	NULL,       	NULL,       	1 << 4,       	0,           0,           -1           -1 },
+	{ "Thunderbird",  	NULL,       	NULL,       	1 << 4,       	0,           0,           -1,           1 },
 	{ "ffplay",		    NULL,		    NULL,		    0,		        1,	         0,           -1,          -1 },
 	{ "st",             NULL,           NULL,           0,              0,           1,            0,          -1 },
 	{ NULL,             NULL,           "Event Tester", 0,              0,           0,            1,          -1 },
